@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 import time
-from subprocess import Popen, PIPE, CalledProcessError
+from subprocess import Popen, PIPE 
 from glob import glob
 import os
 
