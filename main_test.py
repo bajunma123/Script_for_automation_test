@@ -55,11 +55,12 @@ def write_into_file(test_id):
     print(file_content)
 
 # get the cli result
+tool_path =''.join(glob('**/cls_cli_tool', recursive=True))
 def cli_cmd(cmd=''):
     for enclosure in enclosure_list: 
-        expre = '[root@localhost wgz]# ../cls_latest_version/cls_cli_tool -d /dev/sg{} -c {}\n'.format(enclosure, cmd)
+        expre = '[root@localhost wgz]# {} -d /dev/sg{} -c {}\n'.format(tool_path, enclosure, cmd)
         test_result.append(expre)
-        proc = Popen(['../cls_latest_version/cls_cli_tool', '-d', '/dev/sg{}'.format(enclosure), '-c', '{}'.format(cmd)], stdout=PIPE, stderr=PIPE)
+        proc = Popen(['{}'.format(tool_path), '-d', '{}'.format(enclosure), '-c', '{}'.format(cmd)], stdout=PIPE, stderr=PIPE)
         output, errors = proc.communicate() 
         test_result.append((output + errors).decode('utf-8'))
     return test_result.append(('-' * 80 + '\n'))
