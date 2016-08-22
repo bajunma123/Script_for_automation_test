@@ -6,6 +6,10 @@ from glob import glob
 import os
 
 
+#########################################################################################
+# zoning PHY configuration via SMP
+#########################################################################################
+
 # get the test result
 def get_information(cmd=''):
     expander_list = glob('/dev/bsg/expander*') 
@@ -55,113 +59,125 @@ def write_into_file(test_id):
     file_content = open(test_id).read()
     print(file_content)
 
-#########################################################################################
+##########################################################################################
+#
+#test_result = []
+#
+#get_information('smp_rep_general')
+#get_information('smp_zone_lock')
+#get_information('smp_ena_dis_zoning -e 2')
+#get_information('smp_zone_activate')
+#get_information('smp_discover_list')
+#for i in ['3', '4', '5', '6', '9']:
+#    get_information('smp_discover -p {}'.format(i))
+#get_information('smp_conf_zone_phy_info -p phyinfo.txt')
+#time.sleep(5)
+#get_information('smp_zone_activate')
+#get_information('smp_ena_dis_zoning -e 1')
+#get_information('smp_zone_activate')
+#get_information('smp_zone_unlock')
+#
+#time.sleep(10)
+#cycle()
+#
+#print('reset the canister')
+#reset_cmd()
+#cycle()
+#
+#write_into_file('SES16-2--SES001001.txt')
+#
+##########################################################################################
+#
+#test_result = []
+#
+#get_information('smp_rep_general')
+#get_information('smp_zone_lock')
+#get_information('smp_ena_dis_zoning -e 2')
+#get_information('smp_zone_activate')
+#get_information('smp_discover_list')
+#for i in ['3', '4', '5', '6', '9']:
+#    get_information('smp_discover -p {}'.format(i))
+#get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 1')
+#time.sleep(5)
+#get_information('smp_zone_activate')
+#get_information('smp_ena_dis_zoning -e 1')
+#get_information('smp_zone_activate')
+#get_information('smp_zone_unlock')
+#
+#time.sleep(10)
+#cycle()
+#
+#print('reset the canister')
+#reset_cmd()
+#
+#cycle()
+#
+#write_into_file('SES16-2--SES001002.txt')
+#
+##########################################################################################
+#
+#test_result = []
+#
+#get_information('smp_rep_general')
+#get_information('smp_zone_lock')
+#get_information('smp_ena_dis_zoning -e 2')
+#get_information('smp_zone_activate')
+#get_information('smp_discover_list')
+#for i in ['3', '4', '5', '6', '9']:
+#    get_information('smp_discover -p {}'.format(i))
+#get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 2')
+#time.sleep(5)
+#get_information('smp_zone_activate')
+#get_information('smp_ena_dis_zoning -e 1')
+#get_information('smp_zone_activate')
+#get_information('smp_zone_unlock')
+#
+#time.sleep(10)
+#cycle()
+#
+#print('reset the canister')
+#reset_cmd()
+#cycle()
+#
+#write_into_file('SES16-2--SES001003.txt')
+#
+##########################################################################################
+#
+#test_result = []
+#
+#get_information('smp_rep_general')
+#get_information('smp_zone_lock')
+#get_information('smp_ena_dis_zoning -e 2')
+#get_information('smp_zone_activate')
+#get_information('smp_discover_list')
+#for i in ['3', '4', '5', '6', '9']:
+#    get_information('smp_discover -p {}'.format(i))
+#get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 3')
+#time.sleep(5)
+#get_information('smp_zone_activate')
+#get_information('smp_ena_dis_zoning -e 1')
+#get_information('smp_zone_activate')
+#get_information('smp_zone_unlock')
+#
+#time.sleep(10)
+#cycle()
+#
+## reset the canister
+#print('reset the canister')
+#reset_cmd()
+#cycle()
+#
+#write_into_file('SES16-2--SES001004.txt')
+#
 
-test_result = []
+#########################################################################################
+# zoning permission Table configuration via SMP commands 
+#########################################################################################
 
 get_information('smp_rep_general')
 get_information('smp_zone_lock')
-get_information('smp_ena_dis_zoning -e 2')
-get_information('smp_zone_activate')
-get_information('smp_discover_list')
-for i in ['3', '4', '5', '6', '9']:
-    get_information('smp_discover -p {}'.format(i))
-get_information('smp_conf_zone_phy_info -p phyinfo.txt')
-time.sleep(5)
-get_information('smp_zone_activate')
 get_information('smp_ena_dis_zoning -e 1')
 get_information('smp_zone_activate')
-get_information('smp_zone_unlock')
-
-time.sleep(10)
-cycle()
-
-print('reset the canister')
-reset_cmd()
-cycle()
-
-write_into_file('SES16-2--SES001001.txt')
-
-#########################################################################################
-
-test_result = []
-
-get_information('smp_rep_general')
-get_information('smp_zone_lock')
-get_information('smp_ena_dis_zoning -e 2')
+get_information('smp_rep_zone_perm_tbl ')
+get_information('smp_conf_zone_perm_tbl -P zpt.txt -n 1')
 get_information('smp_zone_activate')
-get_information('smp_discover_list')
-for i in ['3', '4', '5', '6', '9']:
-    get_information('smp_discover -p {}'.format(i))
-get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 1')
-time.sleep(5)
-get_information('smp_zone_activate')
-get_information('smp_ena_dis_zoning -e 1')
-get_information('smp_zone_activate')
-get_information('smp_zone_unlock')
-
-time.sleep(10)
-cycle()
-
-print('reset the canister')
-reset_cmd()
-
-cycle()
-
-write_into_file('SES16-2--SES001002.txt')
-
-#########################################################################################
-
-test_result = []
-
-get_information('smp_rep_general')
-get_information('smp_zone_lock')
-get_information('smp_ena_dis_zoning -e 2')
-get_information('smp_zone_activate')
-get_information('smp_discover_list')
-for i in ['3', '4', '5', '6', '9']:
-    get_information('smp_discover -p {}'.format(i))
-get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 2')
-time.sleep(5)
-get_information('smp_zone_activate')
-get_information('smp_ena_dis_zoning -e 1')
-get_information('smp_zone_activate')
-get_information('smp_zone_unlock')
-
-time.sleep(10)
-cycle()
-
-print('reset the canister')
-reset_cmd()
-cycle()
-
-write_into_file('SES16-2--SES001003.txt')
-
-#########################################################################################
-
-test_result = []
-
-get_information('smp_rep_general')
-get_information('smp_zone_lock')
-get_information('smp_ena_dis_zoning -e 2')
-get_information('smp_zone_activate')
-get_information('smp_discover_list')
-for i in ['3', '4', '5', '6', '9']:
-    get_information('smp_discover -p {}'.format(i))
-get_information('smp_conf_zone_phy_info -p phyinfo.txt -S 3')
-time.sleep(5)
-get_information('smp_zone_activate')
-get_information('smp_ena_dis_zoning -e 1')
-get_information('smp_zone_activate')
-get_information('smp_zone_unlock')
-
-time.sleep(10)
-cycle()
-
-# reset the canister
-print('reset the canister')
-reset_cmd()
-cycle()
-
-write_into_file('SES16-2--SES001004.txt')
-
