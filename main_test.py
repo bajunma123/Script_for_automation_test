@@ -4,9 +4,6 @@ import time
 from subprocess import Popen, PIPE
 from glob import glob
 
-def test_function():
-    print('this is the main.py for automation test')
-
 device_list = glob('/dev/sg*')
 enclosure_list = []
 
@@ -19,37 +16,25 @@ for device in device_list:
     except OSError:
         pass
 
-## get the result
-#    def get_information(sg_ses='sg_ses', page='', index='', set='') 
-#        test_result = []
-#        for enclosure in enclosure_list: 
-#            cmd_output = '[root@localhost wgz]# sg_ses {} {} {} {}\n'.format(page, index, set, enclosure)
-#            test_result.append(cmd_output)
-#            proc = Popen('sg_ses {} {} {} {}'.format, stdout=PIPE, stderr=PIPE)
-#            output, errors = proc.communicate() 
-#            test_result.append((output + errors).decode('utf-8'))
-#        return test_result.append(('-' * 80 + '\n'))
-
 # get the result
-test_result = []
-def get_information(sg_ses='sg_ses', **cmd): 
-    print('load get_information file')
+def get_information(scsi_cmd, *opt): 
+    global test_result
+    test_result = []
     for enclosure in enclosure_list: 
-        if cmd:
-            cmd_string = ' '.join(list(cmd.values()))
-            cmd_output = '[root@localhost wgz]# sg_ses %s\n' % cmd_string
-            test_result.append(cmd_output)
-            proc = Popen(['sg_ses']+list(cmd.values()), stdout=PIPE, stderr=PIPE)
+        if opt:
+            opt_string = ' '.join(list(opt))
+            opt_output = '[root@localhost wgz]# %s %s %s\n' % (scsi_cmd, opt_string, enclosure)
+            test_result.append(opt_output)
+            proc = Popen(['{}'.format(scsi_cmd)]+list(opt), stdout=PIPE, stderr=PIPE)
             output, errors = proc.communicate() 
             test_result.append((output + errors).decode('utf-8'))
-            return test_result.append(('-' * 80 + '\n'))
+            test_result.append(('-' * 80 + '\n'))
         
 # write and select the related result info file and output it into the screen
 def write_into_file(test_id):
     with open(test_id, 'w') as f:
         for content in test_result:
                 f.write(content)
-                f.write(('-'* 80 + '\n'))
     print(test_id)
     file_content = open(test_id).read()
     print(file_content)
@@ -63,7 +48,7 @@ def cli_cmd(cmd=''):
         proc = Popen(['{}'.format(tool_path), '-d', '{}'.format(enclosure), '-c', '{}'.format(cmd)], stdout=PIPE, stderr=PIPE)
         output, errors = proc.communicate() 
         test_result.append((output + errors).decode('utf-8'))
-    return test_result.append(('-' * 80 + '\n'))
+        test_result.append(('-' * 80 + '\n'))
     
 # write and select the related cli result info file and output it into the screen
 def write_cli_into_file(test_id):
